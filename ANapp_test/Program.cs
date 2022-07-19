@@ -6,32 +6,49 @@ namespace ANapp_test
 {
     class Program
     {
+        private static IMainMenu _mainMenu = new MainMenuInput();
+
         private static CarShop JoeyUsedCar = new CarShop();
         private static Customer Mikle = new Customer();
         private static UserInterface UI = new UserInterface();
         private static UserInputSystem Input = new UserInputSystem();
 
-        private static Car asd = new Car("asd","asd",12);
-
-        private const string MAIN_MENU_TEXT =
-            "1.Управление автомобилем. \r\n" +
-            "2.Поездка на автомобиле. \r\n" +
-            "3.Повреждение автомобиля.\r\n" +
-            "4.Выбор автомобиля для покупки.\r\n" +
-            "5.Диагностика неисправленности и ремонт автомобиля";
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine(MAIN_MENU_TEXT);
+            MainMenuInput.OnCustomerPurchaseCar += CustomerPurchaseCar;
+            MainMenuInput.OnCustomerDriving += CustomerDriveCar;
+            MainMenuInput.OnExit += Exit;
 
-            asd.Movement(new Mover());
+            _mainMenu.MainMenuActions();
 
-            //Mikle.ChooseCar(JoeyUsedCar.CarList());
 
-            //UI.ShowCarList(JoeyUsedCar.CarList());
-
-            //UI.ShowCarList(Mikle.CarList());
 
         }
+
+
+        private static void CustomerPurchaseCar()
+        {
+            Mikle.ChooseCar(JoeyUsedCar.CarList());
+        }
+
+        private static void CustomerDriveCar()
+        {
+            if (Mikle.CarList().Count == 0)
+            {
+                Console.WriteLine("У вас пока нет машины - купите её в магазине Джоуи");
+            }
+            else
+            {
+                Console.WriteLine("На какой машине будете ездить?");
+                UI.ShowCarList(Mikle.CarList());
+
+                int carNumber = int.Parse(Console.ReadLine());
+
+                Mikle.CarList()[carNumber].Movement(new Mover());
+            }
+        }
+
+        private static void Exit() => Environment.Exit(0);
+
     }
 }

@@ -9,6 +9,7 @@ namespace ANapp_test
         {
             Customer.OnCarChoosing += ShowSellingCarsList;
             CarShop.OnCarPurachaseApproving += ShowWarningBeforePurchase;
+            CarShop.OnCarSold += ShowCongratulations;
 
             Car.OnCarStartMovement += ShowInstructionsBeforeMovement;
 
@@ -26,7 +27,7 @@ namespace ANapp_test
             Console.WriteLine("Введите порядковый номер машины:");
         }
 
-        private void ShowCarList(List<Car> carList)
+        public void ShowCarList(List<Car> carList)
         {
             for (int i = 0; i < carList.Count; i++)
             {
@@ -37,6 +38,11 @@ namespace ANapp_test
         private void ShowWarningBeforePurchase(Car sellingCar)
         {
             Console.WriteLine($"Вы уверены что хотите купить: '{sellingCar}' ? [y/n]");
+        }
+
+        private void ShowCongratulations(Car sellingCar)
+        {
+            Console.WriteLine($"Поздравляем с покупкой '{sellingCar}' !!!"); 
         }
 
         private void ShowInstructionsBeforeMovement() => Console.WriteLine("Для движения используйте 'w,a,s,d' для выхода из режима вождения нажмите 'x'"); 

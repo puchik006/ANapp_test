@@ -18,7 +18,7 @@ namespace ANapp_test
             Car.OnCarStartMovement += EnableMovement;
         }
 
-        Dictionary<string, Action> moveActions = new Dictionary<string, Action>()
+        private Dictionary<string, Action> moveActions = new Dictionary<string, Action>()
         {
             {"s", OnMoveBackward},
             {"w", OnMoveForward},
