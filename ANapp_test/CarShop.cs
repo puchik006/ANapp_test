@@ -1,28 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ANapp_test
 {
-    public class CarShop
+    public class CarShop: CarOwner
     {
-        private CarStock carsForSale = new CarStock();
+        private ShopCarStock _carsForSale = new ShopCarStock();
 
-        public void ChooseCar()
+        public static Action<Car> OnCarPurachaseApproving;
+        public static Action<Car> OnCarSold;
+
+        public CarShop()
         {
-            Console.WriteLine("Выберите машину для покупки из списка ниже:");
-
-            carsForSale.ShowCarList();
-
-            Console.WriteLine("Введите порядковый номер машины:");
-
-            int choosenCar = int.Parse(Console.ReadLine());
-
-            Console.WriteLine($"Поздравляем, вы купили: {carsForSale.CarList[choosenCar]}");
-            BuyCar(choosenCar);
+            UserInputSystem.OnCarChoosed += ApproveCarPurchase;
+            UserInputSystem.OnCarSaleApproved += SellCar;
         }
 
-        private void BuyCar(int choosenCar)
+        private void ApproveCarPurchase(Car sellingCar)
         {
-            carsForSale.RemoveCarFromList(choosenCar);
+            OnCarPurachaseApproving?.Invoke(sellingCar);
+        }
+
+        private void SellCar(Car sellingCar)
+        {
+            OnCarSold?.Invoke(sellingCar);
+            _carsForSale.CarList.Remove(sellingCar);
+        }
+
+        public override List<Car> CarList()
+        {
+            return _carsForSale.CarList;
         }
     }
 }

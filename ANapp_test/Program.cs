@@ -7,6 +7,11 @@ namespace ANapp_test
     class Program
     {
         private static CarShop JoeyUsedCar = new CarShop();
+        private static Customer Mikle = new Customer();
+        private static UserInterface UI = new UserInterface();
+        private static UserInputSystem Input = new UserInputSystem();
+
+        private static Car asd = new Car("asd","asd",12);
 
         private const string MAIN_MENU_TEXT =
             "1.Управление автомобилем. \r\n" +
@@ -19,46 +24,14 @@ namespace ANapp_test
         {
             Console.WriteLine(MAIN_MENU_TEXT);
 
+            asd.StartMovement(new Mover());
 
-            JoeyUsedCar.ChooseCar();
+            //Mikle.ChooseCar(JoeyUsedCar.CarList());
 
-            JoeyUsedCar.
+            //UI.ShowCarList(JoeyUsedCar.CarList());
+
+            //UI.ShowCarList(Mikle.CarList());
 
         }
-
-        public static void UserAction()
-        {
-            if (Console.ReadLine() == "1")
-            {
-                Console.WriteLine("sadas");
-            }
-        }
-    }
-
-
-    public class Car
-    {
-        private string _model;
-        private string _color;
-        private int _yearOfManufacture;
-
-        public CarDamageController DamageController = new CarDamageController();
-
-        public Car(string model, string color, int yearOfManufacture)
-        {
-            _model = model;
-            _color = color;
-            _yearOfManufacture = yearOfManufacture;
-        }
-
-        public void Move() 
-        {
-        }
-
-        public override string ToString()
-        {
-            return (_model + " " + _color + " " + _yearOfManufacture);
-        }
-
     }
 }
