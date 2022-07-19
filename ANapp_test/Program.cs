@@ -24,7 +24,7 @@ namespace ANapp_test
         {
             Console.WriteLine(MAIN_MENU_TEXT);
 
-            asd.StartMovement(new Mover());
+            asd.Movement(new Mover());
 
             //Mikle.ChooseCar(JoeyUsedCar.CarList());
 

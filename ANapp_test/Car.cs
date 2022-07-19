@@ -19,8 +19,9 @@ namespace ANapp_test
             _yearOfManufacture = yearOfManufacture; 
         }
 
-        public void StartMovement(IMovable CarMover)
+        public void Movement(IMovable CarMover)
         {
+            OnCarStartMovement?.Invoke();
             CarMover.Move();
         }
 

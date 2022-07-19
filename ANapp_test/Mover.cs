@@ -11,11 +11,11 @@ namespace ANapp_test
         public static Action OnMoveRight;
         public static Action OnExitMovement;
 
-        private bool isMoveEnable = true;
+        private bool isMoveEnable = false;
 
         public Mover()
         {
-            OnExitMovement += DisableMovement;
+            Car.OnCarStartMovement += EnableMovement;
         }
 
         Dictionary<string, Action> moveActions = new Dictionary<string, Action>()
@@ -29,15 +29,27 @@ namespace ANapp_test
 
         public void Move()
         {
-            moveActions[Console.ReadLine()]?.Invoke();
-
             if (isMoveEnable)
             {
+                moveActions[CheckMovementEnable()]?.Invoke();
                 Move();
             };
         }
 
+        private string CheckMovementEnable()
+        {
+            string s = Console.ReadLine();
+
+            if (s == "x")
+            {
+                DisableMovement();
+            }
+
+            return s;
+        }
+
         private void DisableMovement() => isMoveEnable = false;
+ 
         private void EnableMovement() => isMoveEnable = true;
 
     }
